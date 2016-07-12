@@ -16,7 +16,7 @@ class EngagmentMode(object):
         self.robot_ip = robot_ip
         self.port = port
         self.connect(robot_ip, port)
-        
+
     def connect(self, robot_ip, port):
         try:
             self.motion_proxy  = ALProxy("ALMotion", robot_ip, port)
@@ -26,20 +26,22 @@ class EngagmentMode(object):
             print "Cannot connect to %s:%s. Retrying in 1 second." % (robot_ip, str(port))
             time.sleep(1)
             self.connect(robot_ip, port)
-            
+
     def set_mode(self, awareness_mode, tracking_mode):
         print "Stopping awareness"
         self.basic_awareness_proxy.stopAwareness()
         print "Setting new awareness mode: %s with %s" % (awareness_mode, tracking_mode)
+        if awareness_mode == "None":
+            return
         self.motion_proxy.wakeUp()
         self.basic_awareness_proxy.setEngagementMode(awareness_mode)
         self.basic_awareness_proxy.setTrackingMode(tracking_mode)
         self.basic_awareness_proxy.startAwareness()
 
 if __name__ == "__main__":
-    awareness_modes = ["Unengaged", "SemiEngaged", "FullyEngaged"] 
-    tracking_modes = ["Head", "BodyRotation", "WholeBody", "MoveContextually"] 
-    
+    awareness_modes = ["None", "Unengaged", "SemiEngaged", "FullyEngaged"]
+    tracking_modes = ["None", "Head", "BodyRotation", "WholeBody", "MoveContextually"]
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--ip", type=str, default="192.168.1.37",
                         help="Robot ip address")
