@@ -27,8 +27,8 @@ class ImageWidget(QWidget):
         self._image = QImage()
         self.setWindowTitle('Pepper')
 
-        self._imgWidth = 320
-        self._imgHeight = 240
+        self._imgWidth = 640
+        self._imgHeight = 480
         self._cameraID = CameraID
         self.resize(self._imgWidth, self._imgHeight)
 
@@ -52,9 +52,9 @@ class ImageWidget(QWidget):
         Register our video module to the robot.
         """
         self._videoProxy = ALProxy("ALVideoDevice", IP, PORT)
-        resolution = vision_definitions.kQVGA  # 320 * 240
+        resolution = vision_definitions.kVGA  # 320 * 240
         colorSpace = vision_definitions.kRGBColorSpace
-        self._imgClient = self._videoProxy.subscribe("_client", resolution, colorSpace, 5)
+        self._imgClient = self._videoProxy.subscribe("_client", resolution, colorSpace, 30)
 
         # Select camera.
         self._videoProxy.setParam(vision_definitions.kCameraSelectID,
@@ -105,7 +105,7 @@ class ImageWidget(QWidget):
 
 
 if __name__ == '__main__':
-    IP = "192.168.1.37"  # Replace here with your NaoQi's IP address.
+    IP = "pepper"  # Replace here with your NaoQi's IP address.
     PORT = 9559
     CameraID = 0
 
