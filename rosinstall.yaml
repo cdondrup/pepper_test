@@ -1,0 +1,5 @@
+- git: {local-name: src/pnp_servers, uri: 'git@protolab.aldebaran.com:mummer/pnp_servers.git'}
+- git: {local-name: src/ros_plan, uri: 'git@protolab.aldebaran.com:mummer/ros_plan.git'}
+- git: {local-name: src/rp_pnp_bridge, uri: 'git@protolab.aldebaran.com:mummer/rp_pnp_bridge.git'}
+- git: {local-name: src/semantic_map, uri: 'git@protolab.aldebaran.com:mummer/semantic_map.git'}
+- git: {local-name: src/wp4_dialogue, uri: 'git@protolab.aldebaran.com:mummer/wp4_dialogue.git'}
