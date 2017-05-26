@@ -39,7 +39,7 @@ class EventAbstractclass(ALModule):
         except RuntimeError:
             print("Cannot connect to %s:%s. Retrying in 1 second." % (ip, str(port)))
             time.sleep(1)
-            return self.connect(ip, port)
+            return self._connect(ip, port)
 
     def _make_global(self, name, var):
         globals()[name] = var
