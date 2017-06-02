@@ -17,7 +17,7 @@ class RecordAudio(object):
 
     def connect(self, robot_ip, port):
         try:
-            self.recorder  = ALProxy("ALAudioRecorder", robot_ip, port)
+            self.recorder = ALProxy("ALAudioRecorder", robot_ip, port)
             print "Connected to %s:%s" % (robot_ip, str(port))
         except RuntimeError:
             print "Cannot connect to %s:%s. Retrying in 1 second." % (robot_ip, str(port))
@@ -25,8 +25,8 @@ class RecordAudio(object):
             self.connect(robot_ip, port)
 
     def record(self, f, t):
-        channels = [1,1,1,1] # Left, right, front, rear
-        samplingrate = 48000 # 4 channels=48000, 1 channel=16000
+        channels = [0, 0, 1, 0]  # Left, right, front, rear
+        samplingrate = 16000  # 4 channels=48000, 1 channel=16000
         self.recorder.startMicrophonesRecording(f, t, samplingrate, channels)
         print "Started recording. Please pres Ctrl+C to stop recording."
 
@@ -40,7 +40,8 @@ if __name__ == "__main__":
     types = ["wav", "ogg"]
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("file_name", type=str, help="The output file name on the robot. Please use home dir: /home/nao/")
+    parser.add_argument("file_name", type=str,
+                        help="The output file name on the robot. Please use home dir: /home/nao/")
     parser.add_argument("--ip", type=str, default="pepper",
                         help="Robot ip address")
     parser.add_argument("--port", type=int, default=9559,
