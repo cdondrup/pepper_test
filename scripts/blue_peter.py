@@ -9,6 +9,7 @@ from naoqi_interfaces.utils.flow_control import Spinner
 from blue_peter.animated_say import AnimatedSay
 from blue_peter.posture import Posture
 from blue_peter.motion import Motion
+from blue_peter.dialogue import Dialogue
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -24,15 +25,17 @@ if __name__ == "__main__":
     m = Motion()
     a = AnimatedSay()
     p = Posture()
+    d = Dialogue()
 
     p.stand()
     s.start(globals())
     m.start_breathing()
-    a.say("Hello, I am pepper.")
+    d.start(globals())
 
     Spinner().spin()
 
     m.stop_breathing()
     p.stand()
+    d.stop()
     s.stop()
     con.shutdown_broker(broker)
