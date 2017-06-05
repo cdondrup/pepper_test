@@ -1,4 +1,4 @@
-from events.multi_event_abstractclass import MultiEventAbstractclass
+from naoqi_interfaces.events.multi_event_abstractclass import MultiEventAbstractclass
 from naoqi import ALProxy
 
 

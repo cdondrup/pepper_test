@@ -3,9 +3,12 @@
 
 import argparse
 
-import comms.connection as con
-from blue_peter.person_word_detection import PersonWordDetection
-from utils.flow_control import Spinner
+import naoqi_interfaces.comms.connection as con
+from blue_peter.person_detection import PersonDetection
+from naoqi_interfaces.utils.flow_control import Spinner
+from blue_peter.animated_say import AnimatedSay
+from blue_peter.posture import Posture
+from blue_peter.motion import Motion
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -17,10 +20,19 @@ if __name__ == "__main__":
 
     broker = con.create_broker(args.ip, args.port)
 
-    s = PersonWordDetection()
+    s = PersonDetection()
+    m = Motion()
+    a = AnimatedSay()
+    p = Posture()
+
+    p.stand()
     s.start(globals())
+    m.start_breathing()
+    a.say("Hello, I am pepper.")
 
     Spinner().spin()
 
+    m.stop_breathing()
+    p.stand()
     s.stop()
     con.shutdown_broker(broker)
