@@ -12,8 +12,6 @@ class PersonDetection(EventAbstractclass):
         self.ALTracker.setMode("Move")
 
     def callback(self, *args, **kwargs):
-        print args
-        print "Target", self.ALTracker.getActiveTarget()
         min_distance = 1000.
         person_id = None
         for person in args[1][1]:
@@ -21,8 +19,8 @@ class PersonDetection(EventAbstractclass):
                 person_id = person[0]
 
         if person_id is not None:
-            print "Found person:", person_id
             if self.tracking != person_id:
+                print "Found person:", person_id
                 self.ALTracker.stopTracker()
                 self.ALTracker.removeAllTargets()
                 print "Starting to track"

@@ -10,9 +10,12 @@ from blue_peter.animated_say import AnimatedSay
 from blue_peter.posture import Posture
 from blue_peter.motion import Motion
 from blue_peter.dialogue import Dialogue
+from blue_peter.yaml_parser import YamlParser
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("config_file", type=str,
+                        help="A yaml file containing the config to be used.")
     parser.add_argument("-i", "--ip", type=str, default="pepper",
                         help="Robot ip address")
     parser.add_argument("-p", "--port", type=int, default=9559,
@@ -25,7 +28,7 @@ if __name__ == "__main__":
     m = Motion()
     a = AnimatedSay()
     p = Posture()
-    d = Dialogue()
+    d = Dialogue(YamlParser(args.config_file))
 
     p.stand()
     s.start(globals())

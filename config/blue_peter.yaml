@@ -1,0 +1,28 @@
+concepts: # Concept name and keywords to be recognised
+  'hug': 
+    - 'hug' 
+    - 'squeeze'
+    - 'bring it in'
+  'highfive':
+    - 'high five'
+    - 'give me five'
+    - 'up top'
+  'dance':
+    - 'dance'
+    - 'show me your moves'
+  'about':
+    - 'tell me about yourself'
+    - 'about yourself'
+  'picture':
+    - 'Take a picture'
+    - 'Take a photo'
+    - 'Take a selfie'
+applications: # Subset of concepts. Key: concept name, value: application ID
+  'hug': 'hug'
+  'highfive': 'highfive'
+  'dance': 'arcadia/full_launcher'
+  'picture': 'pose-photo/pose-photo-interactive'
+precanned_text: # Subset of concepts. Intersection of applications and precanned_text has to be empty. 
+# Otherwise, applications will shadow precanned_text. Key: concept name, value: list of possible answers. Randomly chosen at runtime.
+  'about':
+    - 'I am pepper and I am 1 point 20 meters tall. I live at the Heriot Watt University in Edinburgh and am part of the mummer EU project.'
