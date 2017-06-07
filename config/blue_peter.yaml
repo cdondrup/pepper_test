@@ -17,6 +17,7 @@ concepts: # Concept name and keywords to be recognised
     - 'Take a picture'
     - 'Take a photo'
     - 'Take a selfie'
+    - 'selfie'
 applications: # Subset of concepts. Key: concept name, value: application ID
   'hug': 'hug'
   'highfive': 'highfive'

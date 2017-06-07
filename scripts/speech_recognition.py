@@ -116,7 +116,6 @@ class SpeechRecognitionTest(EventAbstractclass):
         self.asr.setVisualExpression(visual)
         self.asr.pause(False)
 
-
     def callback(self, *args, **kwargs):
         print(args)
         print(kwargs)

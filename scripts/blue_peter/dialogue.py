@@ -15,7 +15,7 @@ class Dialogue(EventAbstractclass):
         self.create_proxy("ALBehaviorManager")
         self.animated_say = AnimatedSay()
         self.ALDialog.setLanguage("English")
-        topic_content = ('topic: ~example_topic_content()\n'
+        topic_content = ('topic: ~my_autonomous_pepper()\n'
                          'language: enu\n'
                          + self.parser.concepts
                          + self.parser.generate_rules(self.EVENT_NAME) +
@@ -39,7 +39,11 @@ class Dialogue(EventAbstractclass):
     def chat(self, question):
         question = urllib2.quote(question.encode('UTF-8'))
         call_url = 'http://ec2-54-161-44-218.compute-1.amazonaws.com:5000/?q=%s&sid=MUMMERTEST' % question
-        answer = urllib2.urlopen(call_url, timeout=10.).read()
+        print call_url
+        try:
+            answer = urllib2.urlopen(call_url, timeout=10.).read()
+        except:
+            return
         self.animated_say.say(answer)
 
     def execute_application(self, task):

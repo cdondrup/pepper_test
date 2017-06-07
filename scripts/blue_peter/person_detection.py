@@ -1,15 +1,17 @@
 from naoqi_interfaces.events.event_abstractclass import EventAbstractclass
-from naoqi import ALProxy
 
 
 class PersonDetection(EventAbstractclass):
     EVENT_NAME = "PeoplePerception/PeopleDetected"
+    tracking_modes = ["Head", "WholeBody", "Move", "Navigate"]
 
-    def __init__(self):
+    def __init__(self, tracking_mode="WholeBody"):
         super(self.__class__, self).__init__(inst=self, event=self.EVENT_NAME, proxy_name="ALPeoplePerception")
         self.create_proxy("ALTracker")
         self.tracking = -1
-        self.ALTracker.setMode("Move")
+        if tracking_mode not in self.tracking_modes:
+            raise AttributeError("Unknown tracking mode '%s'" % tracking_mode)
+        self.ALTracker.setMode(tracking_mode)
 
     def callback(self, *args, **kwargs):
         min_distance = 1000.

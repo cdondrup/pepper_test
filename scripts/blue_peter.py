@@ -5,7 +5,7 @@ import argparse
 
 import naoqi_interfaces.comms.connection as con
 from blue_peter.person_detection import PersonDetection
-from naoqi_interfaces.utils.flow_control import Spinner
+from naoqi_interfaces.control.spinner import Spinner
 from blue_peter.animated_say import AnimatedSay
 from blue_peter.posture import Posture
 from blue_peter.motion import Motion
@@ -35,10 +35,12 @@ if __name__ == "__main__":
     m.start_breathing()
     d.start(globals())
 
-    Spinner().spin()
-
-    m.stop_breathing()
-    p.stand()
-    d.stop()
-    s.stop()
-    con.shutdown_broker(broker)
+    spinner = Spinner()
+    spinner.register_on_shutdown_function(
+        m.stop_breathing,
+        p.stand,
+        d.stop,
+        s.stop,
+        lambda: con.shutdown_broker(broker)
+    )
+    spinner.spin()

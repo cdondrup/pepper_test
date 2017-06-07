@@ -16,7 +16,8 @@ class Posture(object):
         self.motion = ServiceProxy(proxy_name="ALRobotPosture")
 
     def go_to_pose(self, name):
-        if name not in self.postures: raise AttributeError("Unknown posture %s" % name)
+        if name not in self.postures:
+            raise AttributeError("Unknown posture %s" % name)
         self.motion.goToPosture(name, .8)
 
     def stand(self):
