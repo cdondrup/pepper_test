@@ -13,6 +13,8 @@ concepts: # Concept name and keywords to be recognised
   'about':
     - 'tell me about yourself'
     - 'about yourself'
+  'hello':
+    - 'hello'
   'picture':
     - 'Take a picture'
     - 'Take a photo'
@@ -26,4 +28,6 @@ applications: # Subset of concepts. Key: concept name, value: application ID
 precanned_text: # Subset of concepts. Intersection of applications and precanned_text has to be empty. 
 # Otherwise, applications will shadow precanned_text. Key: concept name, value: list of possible answers. Randomly chosen at runtime.
   'about':
-    - 'I am pepper and I am 1 point 20 meters tall. I live at the Heriot Watt University in Edinburgh and am part of the mummer EU project.'
+    - 'I am a service robot being trained to work at a supermarket in Finland. I would be happy to assist you with any questions you might have.'
+  'hello':
+    - 'Hello.'
