@@ -38,7 +38,6 @@ if __name__ == "__main__":
         broker=broker,
         events=[s, d]
     )
+    spinner.on_shutdown(m.stop_breathing)
+    spinner.on_shutdown(p.stand)
     spinner.spin()
-
-    m.stop_breathing,
-    p.stand
