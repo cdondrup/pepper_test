@@ -6,11 +6,9 @@ import random
 
 class Dialogue(EventAbstractclass):
     DIALOGUE_NAME = "pepper_chatbot"
-    EVENT_NAME = "MyEventData"
 
-    def __init__(self, parser):
-        super(self.__class__, self).__init__(inst=self, event=self.EVENT_NAME, proxy_name="ALSpeechRecognition")
-        self.parser = parser
+    def init(self, *args):
+        self.parser = args[0]
         self.create_proxy("ALDialog")
         self.create_proxy("ALBehaviorManager")
         self.animated_say = AnimatedSay()
@@ -18,8 +16,8 @@ class Dialogue(EventAbstractclass):
         topic_content = ('topic: ~my_autonomous_pepper()\n'
                          'language: enu\n'
                          + self.parser.concepts
-                         + self.parser.generate_rules(self.EVENT_NAME) +
-                         'u: (_*) $'+self.EVENT_NAME+'=$1 \n'
+                         + self.parser.generate_rules(self.__event__) +
+                         'u: (_*) $'+self.__event__+'=$1 \n'
                          )
         self.topic_name = self.ALDialog.loadTopicContent(topic_content)
         self.ALDialog.activateTopic(self.topic_name)

@@ -3,9 +3,8 @@
 
 import argparse
 
-import naoqi_interfaces.comms.connection as con
 from blue_peter.person_detection import PersonDetection
-from naoqi_interfaces.control.event_spinner import EventSpinner
+from naoqi_interfaces.control.event_spinner import EventManager
 from blue_peter.animated_say import AnimatedSay
 from blue_peter.posture import Posture
 from blue_peter.motion import Motion
@@ -22,22 +21,28 @@ if __name__ == "__main__":
                         help="Robot port number")
     args = parser.parse_args()
 
-    broker = con.create_broker(args.ip, args.port)
+    s = PersonDetection(
+        event="PeoplePerception/PeopleDetected",
+        proxy_name="ALPeoplePerception"
+    )
+    d = Dialogue(
+        event="MyEventData",
+        proxy_name="ALSpeechRecognition"
+    )
 
-    s = PersonDetection()
+    man = EventManager(
+        globals_=globals(),
+        ip=args.ip,
+        port=args.port,
+        events=[(s, ["WholeBody"]), (d, [YamlParser(args.config_file)])]
+    )
+
     m = Motion()
-    a = AnimatedSay()
     p = Posture()
-    d = Dialogue(YamlParser(args.config_file))
 
     p.stand()
     m.start_breathing()
 
-    spinner = EventSpinner(
-        globals_=globals(),
-        broker=broker,
-        events=[s, d]
-    )
-    spinner.on_shutdown(m.stop_breathing)
-    spinner.on_shutdown(p.stand)
-    spinner.spin()
+    man.on_shutdown(m.stop_breathing)
+    man.on_shutdown(p.stand)
+    man.spin()
