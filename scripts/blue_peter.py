@@ -4,8 +4,7 @@
 import argparse
 
 from blue_peter.person_detection import PersonDetection
-from naoqi_interfaces.control.event_spinner import EventManager
-from blue_peter.animated_say import AnimatedSay
+from naoqi_interfaces.control.event_manager import EventManager
 from blue_peter.posture import Posture
 from blue_peter.motion import Motion
 from blue_peter.dialogue import Dialogue
